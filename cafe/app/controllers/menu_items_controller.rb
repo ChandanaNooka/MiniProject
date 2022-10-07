@@ -1,5 +1,5 @@
 class MenuItemsController < ApplicationController
-  before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
+   before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
    before_action :authenticate_user!
   # before_action :admin_user!, except: [:show]
 
@@ -70,7 +70,7 @@ class MenuItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_menu_item
-      @menu_item = MenuItem.find(params[:id])
+      @menu_item = MenuItem.find_by(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
