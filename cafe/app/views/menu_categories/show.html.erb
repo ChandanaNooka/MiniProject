@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <p>
+    <strong><%= @menu_category.name %></strong>
+    <br>
+
+    <table class="table table-borderless table_hover">
+        <thead>
+        <tr>
+          <th>MenuItemName</th>
+          <th>Price</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @menu_items.each do |menu_item| %>
+          <% if menu_item.menu_category_id == @menu_category.id %>
+            <tr>
+              <td><%= menu_item.name %></td>
+              <td><%= number_to_currency(menu_item.price) %></td>
+              <% if current_user.admin? %> 
+              <td><%= link_to 'EditItem',edit_menu_item_path, class:"btn btn-outline-secondary" %></td>
+              <td><%= link_to 'Destroy',menu_item_path(menu_item), method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-outline-secondary"%></td>
+              <% end %>
+              <td>
+                <%= button_to "Add #{menu_item.name} to cart", order_items_path(:menu_item_id => menu_item.id), class:"btn btn-outline-secondary" %>
+              </td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+
+      </table>
+      <% if current_user.admin? %> 
+        <%= link_to 'Add Menu item', new_menu_item_path, class:"btn btn-light" %>
+      <% end %>
+  </p>
+  <br/>
+  <%= link_to 'Back', menu_categories_path,class:"btn btn-light" %>
+
+  </div>
+</div>
+
+
+

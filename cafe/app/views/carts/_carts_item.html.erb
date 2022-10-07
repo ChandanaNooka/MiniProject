@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <p>
+    <strong>Cart</strong>
+    <br>
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+          <th>MenuItemName</th>
+          <th>Price</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @order_items.each do |item| %>
+            <tr>
+              <td><%= item.menu_item.name %></td>
+              <td>₹<%= item.menu_item.price %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <% if @order_items.present? %>
+                <%= link_to 'Checkout', order_items_path,class:"btn btn-light", data: {confirm: 'Confirm and Place Order ? ' } %>
+              <% end %>
+                
+              </td>
+          </tr>
+        </tbody>
+
+      </table>
+  </p>
+  <br/>
+  <%= link_to 'Back', menu_categories_path,class:"btn btn-light" %>
+  </div>
+</div>
+

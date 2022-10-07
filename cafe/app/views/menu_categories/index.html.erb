@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<strong><h1>Menu Categories</h1></strong>
+
+<table class="table table-borderless">
+  <tbody>
+    <% @menu_categories.each do |menu_category| %>
+      <tr>
+        <td><%= menu_category.menuid %></td>
+
+        <td>
+          <strong>
+            <%= menu_category.name %> 
+          </strong>
+        </td>   
+        <td><%= link_to 'Show', menu_category,class:"btn btn-outline-secondary"%>
+        <% if current_user.admin? %>     
+          <td><%= link_to 'Edit', edit_menu_category_path(menu_category),class:"btn btn-outline-secondary" %></td>
+          <td><%= link_to 'Destroy', menu_category, method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-outline-secondary"%></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<% if current_user.admin? %> 
+  <%= link_to 'New Menu category', new_menu_category_path, class:"btn btn-light" %>
+<% end %>

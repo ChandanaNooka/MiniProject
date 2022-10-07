@@ -1,0 +1,36 @@
+<ul class="nav justify-content-center bg-dark">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#"><%= link_to 'Cafeteria',root_path %></a>
+  </li>
+  <% if user_signed_in? %>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><%= link_to 'Menu',menu_categories_path %></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><%= link_to 'Orders',orders_path %></a>
+  </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><%= link_to 'Cart',@current_cart %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><%= link_to 'EditProfile',edit_user_registration_path %></a>
+    </li>
+      <% if @current_cart.order_items.present? %>
+          <li class="nav-item">
+              <a class="nav-link" href="#"><%= link_to 'SignOut',destroy_user_session_path, method: :delete , data: {confirm: 'Cart is not empty , are you ok to Signout ? ' } %></a>
+          </li>
+      <% else %>
+        <li class="nav-item">
+              <a class="nav-link" href="#"><%= link_to 'SignOut',destroy_user_session_path, method: :delete %></a>
+        </li>
+      <% end %>
+  <% else %>
+    <li class="nav-item">
+    <a class="nav-link" href="#"><%= link_to 'SignUp',new_user_registration_path %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><%= link_to 'SignIn',new_user_session_path %></a>
+    </li>
+  <% end %>
+</ul>

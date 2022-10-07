@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <p>
+    <strong>Cart</strong>
+    <br>
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+          <th>MenuItemName</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>TotalPrice</th>
+          <th></th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @cart.order_items.each do |order_item| %>
+            <tr>
+              <td><%= order_item.menu_item.name %></td>
+              <td><%= number_to_currency(order_item.menu_item.price) %></td>
+              <td>
+                <strong><%= link_to " ++ ", order_item_add_path(:id => order_item), method: :post %></strong>
+                <% order_item.quantity ||= 1 %>
+                <%= order_item.quantity%>
+                <strong><%= link_to " -- ", order_item_reduce_path(:id => order_item), method: :post %></strong>
+              </td>
+              <td><%= number_to_currency(order_item.total_price) %></td>
+              <td><%= link_to "Remove Item", order_item_path(order_item), method: :delete,class:"btn btn-secondary btn-sm"%></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= number_to_currency(@cart.sub_total) %></td>
+            <td>
+              <% if @cart.order_items.present? %>
+                <%= link_to 'Checkout', new_order_path,class:"btn btn-light", data: {confirm: 'Proceed to Buy ? ' } %>
+              <% end %>
+              </td>
+          </tr>
+        </tbody>
+
+      </table>
+  </p>
+  <br/>
+  <%= link_to 'Back', menu_categories_path,class:"btn btn-light" %>
+  </div>
+</div>
+

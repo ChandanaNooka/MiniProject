@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+<% @orders.each do |order| %>
+<% if order.user == current_user || current_user.admin? || current_user.billingstaff? %>
+<div class="jumbotron jumbotron-fluid" style="background:#BC8F8F;">
+  <div class="container">
+  	<div class="row">
+  		<div class="col-sm-4">OrderId : <%= order.id %></div>
+  		<% if current_user.admin? || current_user.billingstaff? %>
+  			<div class="col-sm-4"><%= order.user.email %></div>
+  		<% else %>
+  			<div class="col-sm-4"></div>
+  		<% end %>
+  		<div class="col-sm-4">Order Date : <%= order.date %></div>
+  	</div>
+  	<br/>
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+
+          <th>MenuItemName</th>
+          <th>Quantity</th>
+          <th>Item price</th>
+          <th>Total Price</th>
+          <th></th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+        	<% total = 0 %>
+        	<% order.order_items.each do |item| %>
+            <tr>
+               <td><%= item.menu_item.name %></td>
+               <% item.quantity ||= 1 %>
+              <td><%= item.quantity %></td>
+              <td><%= number_to_currency(item.menu_item.price) %></td> 
+              <% subt = 0 %>
+              <% item.quantity ||= 1 %>
+              <% subt = item.menu_item.price * item.quantity %>
+              <% total = total + subt %>
+              <td><%= number_to_currency(subt) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+
+      </table>
+      <br/>
+      <div class="row">
+      	<div class="col">
+
+	  			<% if order.orderstatus == nil %>
+	  				<button class="btn btn-outline-dark">Status : Pending Delivery</button>
+	  			<% else %>
+	  				<button class="btn btn-success">Status : Delivered <%= order.updated_at  %></button>
+	  			<% end %>
+  		</div>
+  		<div class="col"></div>
+  		<div class="col">
+  			<% if (current_user.admin? || current_user.billingstaff?) && order.orderstatus == nil %>
+  				<%= link_to 'Mark as Delivered', order_path(order), method: :put, class:"btn btn-light" %>
+  			<% end %> 
+  		</div>
+  		
+  		<div class="col">Order Total <%= number_to_currency(total) %></div>
+  	  </div>
+
+
+  </div>
+</div>
+<% end %>
+<% end %>
+
+
