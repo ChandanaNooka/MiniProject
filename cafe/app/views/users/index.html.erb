@@ -1,0 +1,26 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+          <th>UserMail</th>
+          <th>Role</th>
+          <th>Account created on</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.role %></td>
+              <td><%= user.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+
+      </table>
+  </div>
+</div>
+
+

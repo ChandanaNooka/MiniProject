@@ -1,0 +1,19 @@
+<%= form_for(@order) do |f| %>
+  <div class="field form-group">
+    <%= f.number_field :user_id,class:"form-control",placeholder:"UserId", required: true, autofocus: true %>
+    <br/>
+  </div>
+  <div class="field form-group">
+    <%= f.text_field :address,class:"form-control",placeholder:"Address"%>
+  </div>
+  <div class="field form-group">
+  	<%= f.label "Payment Method" %><br/>
+    	<%= f.select :paymentmethod,['Cash on Delivery','NetBanking', 'cards'],class:"form-control" %>
+	</div>
+  <br/>
+  <br/>
+  <div class="actions">
+    <%= f.submit class:"btn btn-secondary" %>
+  </div>
+<% end %>
+

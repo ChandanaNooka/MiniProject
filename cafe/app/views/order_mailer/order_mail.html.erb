@@ -1,0 +1,49 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <br/>
+    <h2>We've received your order and deliver it soon...!<h2>
+    <p>Order details</p>
+    <br/>
+    <% Order.all.each do |order| %>
+    <% if order == Order.last %>
+      <p>OrderId : <%= order.id %></p>
+      <br/>
+       <strong>OrderItems</strong>
+       <br/>
+       <table class="table">
+        <thead>
+          <tr>
+             <th>MenuItemName</th>
+             <th>Quantity</th>
+             <th>Price</th>
+             <th>SubTotal</th>
+          </tr>
+        </thead>
+        <tbody>
+         <% total = 0 %>
+          <% order.order_items.each do |item| %>
+         <tr>
+                  <td><%= item.menu_item.name %></td>
+                   <% item.quantity ||= 1 %>
+                  <td><%= item.quantity %></td>
+                   <% subt = 0 %>
+                  <td><%= item.menu_item.price %></td>
+                  <% item.quantity ||= 1 %>
+                  <% subt = item.menu_item.price * item.quantity %>
+                  <td><%= number_to_currency(subt) %></td>
+                  <% total = total + subt %> 
+         </tr>
+          <% end %>
+         <tr>
+          <td>TotalPrice : <%= number_to_currency(total) %></td>
+         </tr>
+       </tbody>
+       </table>
+
+    <% end %>
+    <% end %>
+    <br/><br/>
+    <strong>Thank you :)</strong>
+  </div>
+</div>
+
