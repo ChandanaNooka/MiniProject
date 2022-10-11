@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :current_cart
 
-  
-  private 
+  private
 
   def current_cart
     if session[:cart_id]

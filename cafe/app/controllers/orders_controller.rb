@@ -34,7 +34,9 @@ class OrdersController < ApplicationController
       @order.order_items << item
       item.cart_id = nil
     end
-    @order.save
+    if @order.save
+      OrderMailer.order_mail(@order).deliver_now
+    end
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
     redirect_to orders_path

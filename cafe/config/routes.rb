@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  # get 'users/index'
+
   # get 'carts/show', to: 'cart#show'
   # get 'order_items/show', to: 'order_items#show'
 
@@ -7,6 +9,7 @@ Rails.application.routes.draw do
   resources :menu_items
   resources :menu_categories
   resources :orders
+  resources :users
 
   # put "/orders/update" => "orders#update"
   # resources :order_items

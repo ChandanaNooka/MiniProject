@@ -13,6 +13,14 @@
     <li class="nav-item">
       <a class="nav-link" href="#"><%= link_to 'Cart',@current_cart %></a>
     </li>
+    <% if current_user.admin? %>   
+      <li class="nav-item">
+      <a class="nav-link" href="#"><%= link_to 'All Users',users_path %></a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#"><%= link_to 'Add account',new_user_path %></a>
+      </li>
+    <% end %>
     <li class="nav-item">
       <a class="nav-link" href="#"><%= link_to 'EditProfile',edit_user_registration_path %></a>
     </li>

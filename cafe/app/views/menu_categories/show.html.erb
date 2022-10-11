@@ -17,19 +17,19 @@
         </thead>
         <tbody>
           <% @menu_items.each do |menu_item| %>
-          <% if menu_item.menu_category_id == @menu_category.id %>
-            <tr>
-              <td><%= menu_item.name %></td>
-              <td><%= number_to_currency(menu_item.price) %></td>
-              <% if current_user.admin? %> 
-              <td><%= link_to 'EditItem',edit_menu_item_path, class:"btn btn-outline-secondary" %></td>
-              <td><%= link_to 'Destroy',menu_item_path(menu_item), method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-outline-secondary"%></td>
-              <% end %>
-              <td>
-                <%= button_to "Add #{menu_item.name} to cart", order_items_path(:menu_item_id => menu_item.id), class:"btn btn-outline-secondary" %>
-              </td>
-            </tr>
-          <% end %>
+            <% if menu_item.menu_category_id == @menu_category.id %>
+              <tr>
+                <td><%= menu_item.name %></td>
+                <td><%= number_to_currency(menu_item.price) %></td>
+                <% if current_user.admin? %> 
+                <td><%= link_to 'EditItem',edit_menu_item_path(menu_item), class:"btn btn-outline-secondary" %></td>
+                <td><%= link_to 'Destroy',menu_item_path(menu_item), method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-outline-secondary"%></td>
+                <% end %>
+                <td>
+                  <%= button_to "Add #{menu_item.name} to cart", order_items_path(:menu_item_id => menu_item.id), class:"btn btn-outline-secondary" %>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
 

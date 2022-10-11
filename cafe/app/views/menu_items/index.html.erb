@@ -32,5 +32,6 @@
 
 <br>
 <br>
-
-<%= link_to 'New Menu item', new_menu_item_path, class:"btn btn-light" %>
+<% if current_user.admin? %> 
+  <%= link_to 'New Menu item', new_menu_item_path, class:"btn btn-light" %>
+<% end %>
